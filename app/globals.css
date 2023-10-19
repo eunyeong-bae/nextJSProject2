@@ -3,25 +3,25 @@ body{
 }
 
 .list-bg {
-    background: rgb(249, 250, 255);
-    padding: 10px;
-  }
-  .list-item {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 5px;
-    box-shadow: rgb(224, 224, 224) 0px 2px 4px 0px;
-  }
-  .list-item h4 {
-    font-size: 20px;
-    font-weight: 800;
-    margin: 0;
-  }
-  .list-item p {
-    color: grey;
-    margin : 5px 0px;
-  } 
+  background: rgb(249, 250, 255);
+  padding: 10px;
+}
+.list-item {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 5px;
+  box-shadow: rgb(224, 224, 224) 0px 2px 4px 0px;
+}
+.list-item h4 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+}
+.list-item p {
+  color: grey;
+  margin : 5px 0px;
+} 
 
 .p-20 {
   padding: 20px;
@@ -56,4 +56,9 @@ a{
 }
 .logo{
   font-weight: bold;
+}
+
+.list-item {
+  opacity: 1;
+  transition: all 1s;
 }

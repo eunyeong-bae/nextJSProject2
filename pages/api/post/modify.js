@@ -9,7 +9,8 @@ export default async function Modify(request, response) {
             {_id: new ObjectId(request.body._id)}, 
             {$set : change}
         );
-
-        return response.status(200).redirect(302, '/list');
+        
+        response.redirect(302, '/list')
+        // return response.status(200).json('success');
     }
 }
