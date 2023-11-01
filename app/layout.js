@@ -37,7 +37,7 @@ export default async function RootLayout({ children }) {
             }
           </div>
           <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-            {/* <DarkMode cookie={res.value}/> */}
+            <DarkMode cookie={res.value}/>
             <LoginBtn session={session}/>
           </div>
         </div>
