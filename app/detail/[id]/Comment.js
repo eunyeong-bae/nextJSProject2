@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 export default function Comment({parentID}) {
     const [comment, setComment] = useState('');
     const [ commentList, setCommentList] = useState([]);
-    console.log(parentID)
+    // console.log(parentID)
 
     //client component 로드 시, 서버에 데이터 요청하려면 useEffect > fetch 사용
     //장점 : 새로고침없이 부드럽게 생성,삭제,조회 가능
@@ -24,34 +24,52 @@ export default function Comment({parentID}) {
          *         2. ajax 요청으로 데이터 가져오기 시작
          *          3. ajax 결과를 html 에 넣어주도록 해야 UX 적으로 더 나음
          */
-        fetch('/api/comment/new', {
-            method:'GET'
-        })
-        .then(r => {
-            return r.json();
-        })
-        .then(res => {
-            setCommentList(res);
-            console.log(res)
+        // fetch('/api/comment/new', {
+        //     method:'GET'
+        // })
+        // .then(r => {
+        //     return r.json();
+        // })
+        // .then(res => {
+        //     setCommentList(res);
+        //     console.log(res)
+        // })
+        
+        //get 요청 시 데이터 함께 보내려면 
+        //1.URL parameter
+        //2. query string
+        fetch(`/api/comment/list?id=${parentID}`).then(r=>r.json())
+        .then((result) => {
+            //2. 가져온 데이터 state 에 저장하기
+            setCommentList(result);
         })
     }, []); 
 
     return (
         <div>
             <div style={{ padding:'20px',border:'1px solid'}}>
-                { commentList && commentList.map(item => {
-                    return (
-                        parentID === item.parent && 
-                        <p key={item._id}>{item.content}</p>
-                    )
-                })}
+                <h1>댓글 창</h1>
+                {   //3.state 를 html 에 넣기
+                    commentList.length > 0 
+                    ? commentList.map(item => {
+                            return (
+                                // parentID === item.parent && 
+                                <p key={item._id}>{item.content}</p>
+                            )
+                        })
+                    : <h1>로딩 중입니다</h1>
+                }
             </div>
-            <input onChange={(e) => {setComment(e.target.value)}}/>
+            <input id="inputValue" onChange={(e) => {setComment(e.target.value)}}/>
             <button onClick={() => {
-                console.log(comment)
+                // console.log(comment)
                 fetch('/api/comment/new', 
                     { method:'POST', 
                         body : JSON.stringify({comment, parentID})
+                }).then(r => r.json())
+                .then(result => {
+                    setCommentList(result);
+                    document.getElementById('inputValue').value = '';
                 })
             }}>댓글 전송</button>
         </div>

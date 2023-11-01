@@ -21,11 +21,14 @@ export default async function handler(request, response) {
                 parent: new ObjectId(request.body.parentID), //빈칸 체크 
                 author: session.user.email, //프론트에서 위조할 수 있어서, 서버에서 직접 검색해보는게 나음
             }
-            
-            const db = (await connectDB).db('forum');
-            let result = await db.collection('comment').insertOne(data)
 
-            response.status(200).json('success')
+            const db = (await connectDB).db('forum');
+            await db.collection('comment').insertOne(data);
+
+            let result = await db.collection('comment')
+                .find({parent: new ObjectId(request.body.parentID)}).toArray();
+                
+            response.status(200).json(result);
         } else {
             return response.status(500).json('로그인 후 이용해주세요.')
         }
