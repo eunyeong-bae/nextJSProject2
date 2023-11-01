@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google'
 import LoginBtn from './loginBtn'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
+import {cookies} from 'next/headers';
+import DarkMode from './DarkMode'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,17 +15,31 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  let session = await getServerSession(authOptions)
+  let session = await getServerSession(authOptions);
+
+  /*
+  * dark mode 동적 ui 만들기\
+    1. 현재 UI의 상태를 cookie에 저장해둠
+    2. cookie 에 따라서 UI 어떻게 변할 지 작성
+    3. 필요할 때 cookie 변경
+  */
+  let res = cookies().get('mode');
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={res?.value == 'dark' ? 'dark-mode' : ''}>
         <div className='navbar'>
           <div className='nav-item'>
             <Link href="/" className='logo'>JoyForum</Link>
-            {session && <Link href="/list">List</Link>}
+            {
+              session && 
+              <Link href="/list">List</Link>
+            }
           </div>
-          <LoginBtn session={session}/>
+          <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+            <DarkMode cookie={res.value}/>
+            <LoginBtn session={session}/>
+          </div>
         </div>
         {children}
       </body>
