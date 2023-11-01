@@ -61,11 +61,15 @@ export default function ListItem({result}) {
                                 body : item._id
                             }).then((res) => {
                                 return res.json();
-                            }).then(() => {
-                                e.target.parentElement.style.opacity = 0;
-                                setTimeout(() => {
-                                    e.target.parentElement.style.display = 'none';
-                                }, 1000);
+                            }).then((r) => {
+                                if(r === 'false') {
+                                    alert('글 작성자가 아니면 삭제 불가능')
+                                } else {
+                                    e.target.parentElement.style.opacity = 0;
+                                    setTimeout(() => {
+                                        e.target.parentElement.style.display = 'none';
+                                    }, 1000);
+                                }
                             })
 
                             // .then((res) => {

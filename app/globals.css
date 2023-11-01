@@ -46,9 +46,14 @@ a{
 }
 
 .navbar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   background-color: white;
   padding: 20px;
 }
+
 .navbar a {
   margin-right: 10px;
   color: black;

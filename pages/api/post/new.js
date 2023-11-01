@@ -1,6 +1,14 @@
 import { connectDB } from "@/util/database"
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(request, response) {
+    let session = await getServerSession(request, response, authOptions);
+    // console.log(session.user.email);
+    if(session) {
+        request.body.author = session.user.email;
+    }
+    console.log(request.body)
     if(request.method == 'POST'){
         if(request.body.title == '') {
             return response.status(500).json('data 제대로 입력해라');
