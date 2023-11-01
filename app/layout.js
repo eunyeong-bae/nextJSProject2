@@ -36,7 +36,7 @@ export default async function RootLayout({ children }) {
               <Link href="/list">List</Link>
             }
           </div>
-          <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+          <div style={{display:'flex', border:'1px solid', width:'250px', flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
             <DarkMode cookie={res}/>
             <LoginBtn session={session}/>
           </div>
