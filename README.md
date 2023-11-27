@@ -6,6 +6,7 @@
 - Create-next-app
 - Next.js
 - JavaScript
+- MongoDB
 
 ## Script
 ```
